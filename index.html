@@ -20,7 +20,6 @@
       overflow-x: hidden;
     }
 
-    /* Custom Animations */
     @keyframes float {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
       50% { transform: translateY(-12px) rotate(2deg); }
@@ -54,7 +53,6 @@
     .animate-shake { animation: shake 0.5s ease-in-out; }
     .animate-star { animation: star-pop 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
 
-    /* Floating Bubble Styling */
     .bubble {
       position: absolute;
       border-radius: 50%;
@@ -66,11 +64,8 @@
       transition: transform 0.2s, background-color 0.2s;
     }
 
-    .bubble:active {
-      transform: scale(0.9);
-    }
+    .bubble:active { transform: scale(0.9); }
 
-    /* Playful Glassmorphism & Cards */
     .game-card {
       background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(10px);
@@ -88,7 +83,6 @@
       box-shadow: 0 2px 0px currentColor;
     }
 
-    /* Confetti Canvas */
     #confetti-canvas {
       position: fixed;
       top: 0;
@@ -104,28 +98,21 @@
 
   <canvas id="confetti-canvas"></canvas>
 
-  <!-- Top Navigation & Progress Header -->
   <header class="w-full max-w-4xl bg-white/90 rounded-3xl p-3 sm:p-4 mb-3 shadow-lg flex items-center justify-between border-4 border-yellow-300">
     <div class="flex items-center gap-2 sm:gap-4">
       <button id="btn-home" onclick="game.showMap()" class="bg-amber-400 hover:bg-amber-500 text-white font-bold px-3 py-2 sm:px-4 sm:py-2 rounded-2xl shadow-md flex items-center gap-1 sm:gap-2 text-sm sm:text-base border-b-4 border-amber-600 active:translate-y-1">
         <i class="fa-solid fa-house text-lg"></i>
         <span>地圖</span>
       </button>
-      <!-- Rourou Avatar & Audio Toggle -->
       <div class="flex items-center gap-2">
         <div class="w-10 h-10 sm:w-12 sm:h-12 bg-pink-200 rounded-full flex items-center justify-center border-2 border-pink-400 overflow-hidden shadow-inner">
           <svg viewBox="0 0 100 100" class="w-full h-full">
-            <!-- Girl Rourou SVG Avatar -->
             <circle cx="50" cy="50" r="45" fill="#FFE0BD"/>
             <path d="M 20 40 Q 50 10 80 40 Q 50 25 20 40" fill="#4A2E2B"/>
-            <circle cx="35" cy="48" r="5" fill="#333"/>
-            <circle cx="65" cy="48" r="5" fill="#333"/>
-            <circle cx="37" cy="46" r="1.5" fill="#fff"/>
-            <circle cx="67" cy="46" r="1.5" fill="#fff"/>
+            <circle cx="35" cy="48" r="5" fill="#333"/><circle cx="65" cy="48" r="5" fill="#333"/>
+            <circle cx="37" cy="46" r="1.5" fill="#fff"/><circle cx="67" cy="46" r="1.5" fill="#fff"/>
             <path d="M 40 65 Q 50 75 60 65" fill="none" stroke="#E57373" stroke-width="4" stroke-linecap="round"/>
-            <circle cx="28" cy="58" r="6" fill="#FF8A80" opacity="0.5"/>
-            <circle cx="72" cy="58" r="6" fill="#FF8A80" opacity="0.5"/>
-            <!-- Hair pigtails -->
+            <circle cx="28" cy="58" r="6" fill="#FF8A80" opacity="0.5"/><circle cx="72" cy="58" r="6" fill="#FF8A80" opacity="0.5"/>
             <path d="M 15 45 Q 5 60 15 70 Q 25 60 20 45" fill="#4A2E2B"/>
             <path d="M 85 45 Q 95 60 85 70 Q 75 60 80 45" fill="#4A2E2B"/>
           </svg>
@@ -137,7 +124,6 @@
       </div>
     </div>
 
-    <!-- Star Counter Display -->
     <div class="flex items-center bg-yellow-100 border-2 border-yellow-400 px-3 py-1.5 sm:px-4 sm:py-2 rounded-2xl shadow-inner gap-2">
       <i class="fa-solid fa-star text-yellow-500 text-xl sm:text-2xl animate-pulse"></i>
       <span id="total-stars-display" class="text-xl sm:text-2xl font-black text-amber-800">0</span>
@@ -145,31 +131,22 @@
     </div>
   </header>
 
-  <!-- MAIN GAME CONTAINER -->
   <main class="w-full max-w-4xl flex-1 flex flex-col items-center justify-center relative">
 
-    <!-- MAP / HUB VIEW -->
     <section id="view-map" class="w-full flex flex-col items-center gap-4 py-2">
-      <!-- Story Banner -->
       <div class="w-full bg-white/95 rounded-3xl p-4 sm:p-5 shadow-xl border-4 border-purple-300 relative overflow-hidden">
         <div class="flex flex-col sm:flex-row items-center gap-4">
           <div class="flex items-center gap-2">
-            <!-- Rourou SVG -->
             <div class="w-16 h-16 sm:w-20 sm:h-20 animate-bounce-gentle">
               <svg viewBox="0 0 100 100" class="w-full h-full drop-shadow-md">
                 <circle cx="50" cy="50" r="45" fill="#FFE0BD"/>
                 <path d="M 15 42 Q 50 5 85 42 Q 50 20 15 42" fill="#4A2E2B"/>
                 <circle cx="35" cy="48" r="5" fill="#333"/><circle cx="65" cy="48" r="5" fill="#333"/>
-                <circle cx="37" cy="46" r="2" fill="#fff"/><circle cx="67" cy="46" r="2" fill="#fff"/>
                 <path d="M 40 65 Q 50 75 60 65" fill="none" stroke="#E57373" stroke-width="4" stroke-linecap="round"/>
-                <circle cx="25" cy="58" r="6" fill="#FF8A80" opacity="0.6"/><circle cx="75" cy="58" r="6" fill="#FF8A80" opacity="0.6"/>
               </svg>
             </div>
             <span class="text-2xl font-black text-pink-500">＋</span>
-            <!-- Locked / Unlocked Companions Preview -->
-            <div id="unlocked-companions-bar" class="flex gap-1 bg-pink-50 p-2 rounded-2xl border border-pink-200">
-              <!-- Dynamically populated companions -->
-            </div>
+            <div id="unlocked-companions-bar" class="flex gap-1 bg-pink-50 p-2 rounded-2xl border border-pink-200"></div>
           </div>
           <div class="flex-1 text-center sm:text-left">
             <h2 class="text-base sm:text-lg font-black text-purple-900 mb-1">任務：拯救被耿鬼抓走的皮神！</h2>
@@ -178,10 +155,7 @@
         </div>
       </div>
 
-      <!-- Realm Selection Cards -->
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 w-full">
-        
-        <!-- Realm 1: English -->
         <div onclick="game.openRealm(1)" class="game-card rounded-3xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer hover:scale-[1.02] transition border-l-8 border-l-blue-400">
           <div class="flex justify-between items-start">
             <div>
@@ -189,22 +163,17 @@
               <h3 class="text-lg sm:text-xl font-black text-gray-800 mt-2">ABC 英文字母</h3>
               <p class="text-xs text-gray-500 font-bold mt-1">聽音選字 & 大小寫配對</p>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-500 text-2xl font-black">
-              A
-            </div>
+            <div class="w-12 h-12 rounded-2xl bg-blue-100 flex items-center justify-center text-blue-500 text-2xl font-black">A</div>
           </div>
           <div class="mt-4 flex items-center justify-between border-t border-gray-100 pt-3">
             <div class="flex items-center gap-1">
               <i class="fa-solid fa-star text-yellow-400"></i>
               <span id="stars-realm-1" class="text-sm font-black text-gray-700">0 / 30</span>
             </div>
-            <div id="companion-badge-1" class="text-xs font-bold px-2 py-1 rounded-lg bg-gray-100 text-gray-400">
-              🔒 爪爪 (27星)
-            </div>
+            <div id="companion-badge-1" class="text-xs font-bold px-2 py-1 rounded-lg bg-gray-100 text-gray-400">🔒 爪爪 (27星)</div>
           </div>
         </div>
 
-        <!-- Realm 2: Zhuyin -->
         <div onclick="game.openRealm(2)" class="game-card rounded-3xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer hover:scale-[1.02] transition border-l-8 border-l-emerald-400">
           <div class="flex justify-between items-start">
             <div>
@@ -212,22 +181,17 @@
               <h3 class="text-lg sm:text-xl font-black text-gray-800 mt-2">ㄅㄆㄇ 注音符號</h3>
               <p class="text-xs text-gray-500 font-bold mt-1">聽發音選注音 & 聲調認讀</p>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-600 text-2xl font-black">
-              ㄅ
-            </div>
+            <div class="w-12 h-12 rounded-2xl bg-emerald-100 flex items-center justify-center text-emerald-600 text-2xl font-black">ㄅ</div>
           </div>
           <div class="mt-4 flex items-center justify-between border-t border-gray-100 pt-3">
             <div class="flex items-center gap-1">
               <i class="fa-solid fa-star text-yellow-400"></i>
               <span id="stars-realm-2" class="text-sm font-black text-gray-700">0 / 30</span>
             </div>
-            <div id="companion-badge-2" class="text-xs font-bold px-2 py-1 rounded-lg bg-gray-100 text-gray-400">
-              🔒 小幽 (27星)
-            </div>
+            <div id="companion-badge-2" class="text-xs font-bold px-2 py-1 rounded-lg bg-gray-100 text-gray-400">🔒 小幽 (27星)</div>
           </div>
         </div>
 
-        <!-- Realm 3: English Numbers -->
         <div onclick="game.openRealm(3)" class="game-card rounded-3xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer hover:scale-[1.02] transition border-l-8 border-l-amber-400">
           <div class="flex justify-between items-start">
             <div>
@@ -235,22 +199,17 @@
               <h3 class="text-lg sm:text-xl font-black text-gray-800 mt-2">1~10 英文數字單字</h3>
               <p class="text-xs text-gray-500 font-bold mt-1">對對碰、填空格 & 飄浮字母找寶物</p>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-600 text-2xl font-black">
-              123
-            </div>
+            <div class="w-12 h-12 rounded-2xl bg-amber-100 flex items-center justify-center text-amber-600 text-2xl font-black">123</div>
           </div>
           <div class="mt-4 flex items-center justify-between border-t border-gray-100 pt-3">
             <div class="flex items-center gap-1">
               <i class="fa-solid fa-star text-yellow-400"></i>
               <span id="stars-realm-3" class="text-sm font-black text-gray-700">0 / 30</span>
             </div>
-            <div id="companion-badge-3" class="text-xs font-bold px-2 py-1 rounded-lg bg-gray-100 text-gray-400">
-              🔒 小魟 (27星)
-            </div>
+            <div id="companion-badge-3" class="text-xs font-bold px-2 py-1 rounded-lg bg-gray-100 text-gray-400">🔒 小魟 (27星)</div>
           </div>
         </div>
 
-        <!-- Final Boss Realm -->
         <div id="boss-realm-card" onclick="game.openBossRealm()" class="game-card rounded-3xl p-4 sm:p-5 flex flex-col justify-between cursor-pointer hover:scale-[1.02] transition border-l-8 border-l-purple-600 relative overflow-hidden bg-gradient-to-r from-purple-900/10 to-indigo-900/10">
           <div class="flex justify-between items-start">
             <div>
@@ -258,25 +217,19 @@
               <h3 class="text-lg sm:text-xl font-black text-purple-950 mt-2">決戰耿鬼大魔王！</h3>
               <p class="text-xs text-purple-700 font-bold mt-1">救出皮神的最後三關考驗！</p>
             </div>
-            <div class="w-12 h-12 rounded-2xl bg-purple-200 flex items-center justify-center text-purple-700 text-2xl font-black animate-pulse">
-              👾
-            </div>
+            <div class="w-12 h-12 rounded-2xl bg-purple-200 flex items-center justify-center text-purple-700 text-2xl font-black animate-pulse">👾</div>
           </div>
           <div class="mt-4 flex items-center justify-between border-t border-purple-200/50 pt-3">
             <div class="flex items-center gap-1">
               <i class="fa-solid fa-star text-yellow-400"></i>
               <span id="stars-realm-boss" class="text-sm font-black text-gray-700">0 / 10</span>
             </div>
-            <div id="boss-lock-status" class="text-xs font-black px-3 py-1 rounded-full bg-purple-600 text-white shadow">
-              🔒 需要 85 星
-            </div>
+            <div id="boss-lock-status" class="text-xs font-black px-3 py-1 rounded-full bg-purple-600 text-white shadow">🔒 需要 85 星</div>
           </div>
         </div>
-
       </div>
     </section>
 
-    <!-- LEVEL SELECTOR VIEW (Inside a Realm) -->
     <section id="view-level-select" class="w-full hidden flex-col items-center gap-4">
       <div class="w-full bg-white/90 rounded-3xl p-4 shadow-lg border-4 border-amber-300 flex items-center justify-between">
         <button onclick="game.showMap()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold px-3 py-1.5 rounded-xl text-sm flex items-center gap-1">
@@ -286,14 +239,10 @@
         <div class="w-16"></div>
       </div>
 
-      <div id="level-grid" class="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4 w-full">
-        <!-- 10 levels dynamically inserted here -->
-      </div>
+      <div id="level-grid" class="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4 w-full"></div>
     </section>
 
-    <!-- ACTIVE GAMEPLAY VIEW -->
     <section id="view-gameplay" class="w-full hidden flex-col items-center">
-      <!-- Top Gameplay Bar -->
       <div class="w-full bg-white/95 rounded-2xl p-3 mb-3 shadow-md border-2 border-yellow-300 flex items-center justify-between">
         <button onclick="game.exitLevel()" class="bg-gray-200 hover:bg-gray-300 text-gray-700 font-bold px-3 py-1 rounded-xl text-xs sm:text-sm">
           <i class="fa-solid fa-xmark"></i> 離開
@@ -302,43 +251,29 @@
           <span id="game-mode-badge" class="bg-pink-100 text-pink-700 font-black text-xs px-3 py-1 rounded-full">聽音選字</span>
           <span id="level-num-badge" class="bg-amber-100 text-amber-800 font-black text-xs px-3 py-1 rounded-full">關卡 1</span>
         </div>
-        <!-- Current Question Progress -->
         <div class="text-xs sm:text-sm font-black text-purple-700">
           進度 <span id="q-current">1</span>/<span id="q-total">5</span>
         </div>
       </div>
 
-      <!-- Main Play Card Container -->
       <div class="w-full game-card rounded-3xl p-4 sm:p-6 flex flex-col items-center min-h-[360px] sm:min-h-[420px] justify-between relative overflow-hidden">
-        
-        <!-- Prompt / Question Box -->
-        <div id="prompt-container" class="w-full flex flex-col items-center justify-center my-auto text-center py-2">
-          <!-- Dynamic contents injected based on active mode -->
-        </div>
-
-        <!-- Answers / Options Container -->
-        <div id="options-container" class="w-full grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-4">
-          <!-- Options injected dynamically -->
-        </div>
-
+        <div id="prompt-container" class="w-full flex flex-col items-center justify-center my-auto text-center py-2"></div>
+        <div id="options-container" class="w-full grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-4"></div>
       </div>
     </section>
 
-    <!-- VICTORY / LEVEL COMPLETE DIALOG -->
     <div id="modal-victory" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 hidden flex items-center justify-center p-4">
       <div class="bg-white rounded-3xl p-6 max-w-sm w-full text-center shadow-2xl border-4 border-yellow-400 animate-star">
         <div class="text-5xl mb-2">🎉</div>
         <h3 class="text-2xl font-black text-gray-800 mb-1">太棒了！過關！</h3>
         <p class="text-xs text-gray-500 font-bold mb-4" id="victory-subtitle">恭喜獲得關卡星星！</p>
         
-        <!-- Star rating animation -->
         <div class="flex justify-center items-center gap-2 text-4xl text-amber-400 mb-6" id="victory-stars">
           <i class="fa-solid fa-star"></i>
           <i class="fa-solid fa-star"></i>
           <i class="fa-solid fa-star"></i>
         </div>
 
-        <!-- Newly Unlocked Companion Alert if any -->
         <div id="companion-unlock-alert" class="hidden bg-pink-50 border-2 border-pink-300 rounded-2xl p-3 mb-4 animate-bounce-gentle">
           <div class="text-3xl mb-1" id="unlock-companion-icon">🐍</div>
           <p class="text-xs font-black text-pink-700" id="unlock-companion-msg">成功拯救夥伴「爪爪」！加入冒險陣容！</p>
@@ -350,15 +285,12 @@
       </div>
     </div>
 
-    <!-- GRAND VICTORY CERTIFICATE MODAL (Defeated Gengar & Saved Pishen) -->
     <div id="modal-grand-victory" class="fixed inset-0 bg-purple-950/80 backdrop-blur-md z-50 hidden flex items-center justify-center p-4">
       <div class="bg-gradient-to-b from-yellow-100 to-amber-50 rounded-3xl p-6 max-w-md w-full text-center shadow-2xl border-8 border-yellow-400 relative overflow-hidden">
         <div class="text-4xl mb-2">⚡👑🏆</div>
         <h2 class="text-2xl sm:text-3xl font-black text-amber-900 mb-2">英雄大捷！成功救出皮神！</h2>
         
-        <!-- Animated Hero Showcase -->
         <div class="flex items-center justify-center gap-3 my-4 bg-white/80 p-4 rounded-2xl border-2 border-amber-200">
-          <!-- Rourou -->
           <div class="text-center">
             <div class="w-14 h-14 mx-auto">
               <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="#FFE0BD"/><path d="M 15 42 Q 50 5 85 42 Q 50 20 15 42" fill="#4A2E2B"/><circle cx="35" cy="48" r="5" fill="#333"/><circle cx="65" cy="48" r="5" fill="#333"/><path d="M 40 65 Q 50 75 60 65" fill="none" stroke="#E57373" stroke-width="4"/></svg>
@@ -366,11 +298,8 @@
             <span class="text-[10px] font-black text-pink-600">柔柔</span>
           </div>
           <i class="fa-solid fa-heart text-red-500 text-xl animate-pulse"></i>
-          <!-- Pishen (Pikachu homage) -->
           <div class="text-center">
-            <div class="w-14 h-14 mx-auto bg-yellow-300 rounded-full border-2 border-yellow-500 flex items-center justify-center text-3xl shadow">
-              ⚡
-            </div>
+            <div class="w-14 h-14 mx-auto bg-yellow-300 rounded-full border-2 border-yellow-500 flex items-center justify-center text-3xl shadow">⚡</div>
             <span class="text-[10px] font-black text-amber-700">皮神</span>
           </div>
         </div>
@@ -387,15 +316,11 @@
 
   </main>
 
-  <!-- Footer -->
   <footer class="mt-4 text-center text-xs text-blue-900/60 font-bold">
     柔柔大冒險：拯救皮神 © 6歲幼兒專屬學習遊戲
   </footer>
 
   <script>
-    /* ==========================================================================
-       AUDIO & SPEECH SYNTHESIZER UTILITIES
-       ========================================================================== */
     class AudioSystem {
       constructor() {
         this.ctx = null;
@@ -403,10 +328,15 @@
       }
 
       initContext() {
-        if (!this.ctx) {
-          const AudioContext = window.AudioContext || window.webkitAudioContext;
-          if (AudioContext) this.ctx = new AudioContext();
-        }
+        try {
+          if (!this.ctx) {
+            const AudioContext = window.AudioContext || window.webkitAudioContext;
+            if (AudioContext) this.ctx = new AudioContext();
+          }
+          if (this.ctx && this.ctx.state === 'suspended') {
+            this.ctx.resume();
+          }
+        } catch (e) {}
       }
 
       playBeep(freq = 440, type = 'sine', duration = 0.15) {
@@ -423,15 +353,13 @@
           gain.connect(this.ctx.destination);
           osc.start();
           osc.stop(this.ctx.currentTime + duration);
-        } catch (e) {
-          console.warn("Audio Context blocked or not supported", e);
-        }
+        } catch (e) {}
       }
 
       playCorrect() {
-        this.playBeep(523.25, 'triangle', 0.1); // C5
-        setTimeout(() => this.playBeep(659.25, 'triangle', 0.1), 100); // E5
-        setTimeout(() => this.playBeep(783.99, 'triangle', 0.25), 200); // G5
+        this.playBeep(523.25, 'triangle', 0.1);
+        setTimeout(() => this.playBeep(659.25, 'triangle', 0.1), 100);
+        setTimeout(() => this.playBeep(783.99, 'triangle', 0.25), 200);
       }
 
       playWrong() {
@@ -444,42 +372,35 @@
       }
 
       speak(text, lang = 'zh-TW', rate = 0.85) {
-        if (!this.synth) return;
-        this.synth.cancel(); // Stop ongoing speech
+        try {
+          if (!this.synth) return;
+          this.synth.cancel();
 
-        const utterance = new SpeechSynthesisUtterance(text);
-        utterance.lang = lang;
-        utterance.rate = rate;
-        utterance.pitch = 1.1; // Friendly higher pitch for kids
-        
-        // Try selecting a suitable voice if available
-        const voices = this.synth.getVoices();
-        if (voices.length > 0) {
-          const match = voices.find(v => v.lang.includes(lang));
-          if (match) utterance.voice = match;
-        }
+          const utterance = new SpeechSynthesisUtterance(text);
+          utterance.lang = lang;
+          utterance.rate = rate;
+          utterance.pitch = 1.1;
+          
+          const voices = this.synth.getVoices();
+          if (voices.length > 0) {
+            const match = voices.find(v => v.lang.includes(lang));
+            if (match) utterance.voice = match;
+          }
 
-        this.synth.speak(utterance);
+          this.synth.speak(utterance);
+        } catch (e) {}
       }
     }
 
     const audioSys = new AudioSystem();
 
-    /* ==========================================================================
-       DATA & CONTENT TABLES
-       ========================================================================== */
     const DATA = {
-      // Companion Definitions
       companions: [
         { id: 1, name: "爪爪", type: "玉米蛇", icon: "🐍", color: "bg-red-100 text-red-600 border-red-300" },
         { id: 2, name: "小幽", type: "幽靈抱枕", icon: "👻", color: "bg-indigo-100 text-indigo-600 border-indigo-300" },
         { id: 3, name: "小魟", type: "粉紅魟魚", icon: "🪼", color: "bg-pink-100 text-pink-600 border-pink-300" }
       ],
-
-      // English Letters (A-Z)
       letters: "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split(""),
-
-      // Zhuyin Phonetics & Tones
       zhuyinSymbols: ["ㄅ","ㄆ","ㄇ","ㄈ","ㄉ","ㄊ","ㄋ","ㄌ","ㄍ","ㄎ","ㄏ","ㄐ","ㄑ","ㄒ","ㄓ","ㄔ","ㄕ","ㄖ","ㄗ","ㄘ","ㄙ","ㄚ","ㄛ","ㄜ","ㄝ","ㄞ","ㄟ","ㄠ","ㄡ","ㄢ","ㄣ","ㄤ","ㄥ","ㄦ","ㄧ","ㄨ","ㄩ"],
       zhuyinTones: [
         { name: "一聲/輕聲", symbol: "ˉ / ˙", example: "媽媽 (mā)" },
@@ -487,8 +408,6 @@
         { name: "三聲", symbol: "ˇ", example: "馬馬 (mǎ)" },
         { name: "四聲", symbol: "ˋ", example: "罵罵 (mà)" }
       ],
-
-      // English Numbers 1~10
       numWords: [
         { num: 1, word: "one" },
         { num: 2, word: "two" },
@@ -503,24 +422,20 @@
       ]
     };
 
-    /* ==========================================================================
-       GAME CORE STATE & LOGIC ENGINE
-       ========================================================================== */
     class GameEngine {
       constructor() {
-        // Saved progress structure: stars per level for each realm
         this.progress = JSON.parse(localStorage.getItem('rourou_game_progress')) || {
-          realm1: new Array(10).fill(0), // English
-          realm2: new Array(10).fill(0), // Zhuyin
-          realm3: new Array(10).fill(0), // Numbers
-          boss: new Array(3).fill(0)    // Boss stages
+          realm1: new Array(10).fill(0),
+          realm2: new Array(10).fill(0),
+          realm3: new Array(10).fill(0),
+          boss: new Array(3).fill(0)
         };
 
         this.currentRealm = 1;
-        this.currentLevel = 1; // 1 to 10
+        this.currentLevel = 1;
         this.currentQuestionIndex = 0;
         this.totalQuestions = 5;
-        this.levelScore = 0; // Correct answers count in current level session
+        this.levelScore = 0;
         this.questions = [];
         this.fillInState = { word: '', missingIndices: [], currentIndex: 0, currentAnswers: [] };
 
@@ -567,12 +482,10 @@
         document.getElementById('stars-realm-3').innerText = `${s3} / 30`;
         document.getElementById('stars-realm-boss').innerText = `${sb} / 10`;
 
-        // Update Companion Badges on Map
         this.updateCompanionBadge(1, s1 >= 27, "爪爪 (27星)");
         this.updateCompanionBadge(2, s2 >= 27, "小幽 (27星)");
         this.updateCompanionBadge(3, s3 >= 27, "小魟 (27星)");
 
-        // Boss Unlock Check
         const bossLockBadge = document.getElementById('boss-lock-status');
         if (total >= 85) {
           bossLockBadge.innerHTML = "✨ 已解鎖可挑戰！";
@@ -582,7 +495,6 @@
           bossLockBadge.className = "text-xs font-black px-3 py-1 rounded-full bg-purple-800 text-purple-200 shadow";
         }
 
-        // Top Header Companions List
         const companionsBar = document.getElementById('unlocked-companions-bar');
         companionsBar.innerHTML = '';
         let unlockedCount = 0;
@@ -610,7 +522,6 @@
         }
       }
 
-      /* Navigation Methods */
       showMap() {
         audioSys.playPop();
         document.getElementById('view-map').classList.remove('hidden');
@@ -628,7 +539,6 @@
         const titleMap = { 1: "第一大關：英文字母 (A-Z)", 2: "第二大關：ㄅㄆㄇ 注音練習", 3: "第三大關：數字英文 (1~10)" };
         document.getElementById('realm-title').innerText = titleMap[realmId];
 
-        // Populate Level Select Grid
         const grid = document.getElementById('level-grid');
         grid.innerHTML = '';
         const savedArr = realmId === 1 ? this.progress.realm1 : realmId === 2 ? this.progress.realm2 : this.progress.realm3;
@@ -698,15 +608,12 @@
         }
       }
 
-      /* ==========================================================================
-         QUESTION GENERATION ENGINES
-         ========================================================================== */
       startLevel(levelNum) {
         audioSys.playPop();
         this.currentLevel = levelNum;
         this.currentQuestionIndex = 0;
         this.levelScore = 0;
-        this.totalQuestions = this.currentRealm === 4 ? 3 : 5; // Boss levels have 3 longer rounds
+        this.totalQuestions = this.currentRealm === 4 ? 3 : 5;
 
         document.getElementById('view-level-select').classList.add('hidden');
         document.getElementById('view-gameplay').classList.remove('hidden');
@@ -721,12 +628,10 @@
         for (let q = 0; q < this.totalQuestions; q++) {
           let questionObj = {};
 
-          if (this.currentRealm === 1) { // English Letters
-            // Mode 1: Listen & Pick Letter (Levels 1-5), Mode 2: Uppercase/Lowercase Match (Levels 6-10)
+          if (this.currentRealm === 1) {
             const mode = this.currentLevel <= 5 ? 1 : 2;
             const targetChar = DATA.letters[Math.floor(Math.random() * DATA.letters.length)];
             
-            // Generate 3 unique options
             let opts = [targetChar];
             while (opts.length < 3) {
               const rand = DATA.letters[Math.floor(Math.random() * DATA.letters.length)];
@@ -740,7 +645,7 @@
                 modeBadge: '聽音選字',
                 prompt: '請聽發音，選出正確的字母！',
                 target: targetChar,
-                audioText: targetChar,toLowerCase(),
+                audioText: targetChar, // 保持字母原型，防卡機制會在 render 時處理
                 audioLang: 'en-US',
                 options: opts
               };
@@ -760,10 +665,10 @@
               };
             }
           } 
-          else if (this.currentRealm === 2) { // Zhuyin Phonetics
+          else if (this.currentRealm === 2) {
             const mode = this.currentLevel <= 5 ? 1 : 2;
 
-            if (mode === 1) { // Listen & Pick Zhuyin (4 choices)
+            if (mode === 1) {
               const targetSymbol = DATA.zhuyinSymbols[Math.floor(Math.random() * DATA.zhuyinSymbols.length)];
               let opts = [targetSymbol];
               while (opts.length < 4) {
@@ -781,7 +686,7 @@
                 audioLang: 'zh-TW',
                 options: opts
               };
-            } else { // Listen & Pick Tone (4 choices)
+            } else {
               const targetTone = DATA.zhuyinTones[Math.floor(Math.random() * DATA.zhuyinTones.length)];
               let opts = [...DATA.zhuyinTones].sort(() => Math.random() - 0.5);
 
@@ -796,15 +701,14 @@
               };
             }
           } 
-          else if (this.currentRealm === 3) { // English Numbers
-            // Levels 1-3: Pair Match (Mode 1), Levels 4-7: Fill in the Blank (Mode 2), Levels 8-10: Floating Treasure Hunt (Mode 3)
+          else if (this.currentRealm === 3) {
             let mode = 1;
             if (this.currentLevel >= 4 && this.currentLevel <= 7) mode = 2;
             if (this.currentLevel >= 8) mode = 3;
 
             const targetObj = DATA.numWords[Math.floor(Math.random() * DATA.numWords.length)];
 
-            if (mode === 1) { // Pair Match
+            if (mode === 1) {
               const numToWord = Math.random() > 0.5;
               let opts = [];
               if (numToWord) {
@@ -830,8 +734,7 @@
                 options: opts
               };
             } 
-            else if (mode === 2) { // Fill Blank
-              // Create word with 1 or 2 missing letters
+            else if (mode === 2) {
               const word = targetObj.word;
               const len = word.length;
               let missingIndices = [];
@@ -839,7 +742,6 @@
               if (len <= 3) {
                 missingIndices.push(Math.floor(Math.random() * len));
               } else {
-                // Pick 1 or 2 unique indices
                 missingIndices.push(1);
                 if (len > 4 && Math.random() > 0.5) missingIndices.push(len - 2);
               }
@@ -854,7 +756,7 @@
                 missingIndices: missingIndices
               };
             } 
-            else { // Mode 3: Floating Treasure Hunt
+            else {
               questionObj = {
                 type: 'treasure-hunt',
                 modeBadge: '氣球飄浮找寶物',
@@ -864,8 +766,7 @@
               };
             }
           } 
-          else if (this.currentRealm === 4) { // Boss Battle Realm
-            // Mixed hard questions
+          else if (this.currentRealm === 4) {
             const numObj = DATA.numWords[Math.floor(Math.random() * DATA.numWords.length)];
             questionObj = {
               type: 'treasure-hunt',
@@ -880,9 +781,6 @@
         }
       }
 
-      /* ==========================================================================
-         QUESTION RENDERER & INTERACTION
-         ========================================================================== */
       renderQuestion() {
         const q = this.questions[this.currentQuestionIndex];
         document.getElementById('q-current').innerText = this.currentQuestionIndex + 1;
@@ -895,16 +793,17 @@
         optsBox.innerHTML = '';
         optsBox.className = "w-full grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 mt-4";
 
-        /* Mode: Letter Listening */
         if (q.type === 'letter-listen') {
+          // 純小寫發音，避免 iPhone/iPad 自動加唸 Capital
+          const speakText = q.audioText.toLowerCase();
           promptBox.innerHTML = `
             <p class="text-sm sm:text-base font-black text-gray-700 mb-4">${q.prompt}</p>
-            <button onclick="audioSys.speak('${q.audioText}', '${q.audioLang}')" class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-pink-400 hover:bg-pink-500 text-white shadow-xl flex items-center justify-center text-4xl border-b-4 border-pink-600 btn-3d animate-pulse-grow mx-auto">
+            <button onclick="audioSys.speak('${speakText}', '${q.audioLang}')" class="w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-pink-400 hover:bg-pink-500 text-white shadow-xl flex items-center justify-center text-4xl border-b-4 border-pink-600 btn-3d animate-pulse-grow mx-auto">
               <i class="fa-solid fa-volume-high"></i>
             </button>
             <p class="text-xs text-pink-500 font-bold mt-2">點擊按鈕再聽一次發音</p>
           `;
-          audioSys.speak(q.audioText, q.audioLang);
+          audioSys.speak(speakText, q.audioLang);
 
           q.options.forEach(opt => {
             const btn = document.createElement('button');
@@ -914,8 +813,6 @@
             optsBox.appendChild(btn);
           });
         }
-
-        /* Mode: Uppercase / Lowercase Matching */
         else if (q.type === 'letter-match') {
           promptBox.innerHTML = `
             <p class="text-sm sm:text-base font-black text-gray-700 mb-3">${q.prompt}</p>
@@ -932,8 +829,6 @@
             optsBox.appendChild(btn);
           });
         }
-
-        /* Mode: Zhuyin Listening */
         else if (q.type === 'zhuyin-listen') {
           promptBox.innerHTML = `
             <p class="text-sm sm:text-base font-black text-gray-700 mb-4">${q.prompt}</p>
@@ -952,8 +847,6 @@
             optsBox.appendChild(btn);
           });
         }
-
-        /* Mode: Tone Listening */
         else if (q.type === 'tone-listen') {
           promptBox.innerHTML = `
             <p class="text-sm sm:text-base font-black text-gray-700 mb-2">${q.prompt}</p>
@@ -975,8 +868,6 @@
             optsBox.appendChild(btn);
           });
         }
-
-        /* Mode: Number Pair Match */
         else if (q.type === 'number-pair') {
           promptBox.innerHTML = `
             <p class="text-base sm:text-lg font-black text-amber-900 my-4">${q.prompt}</p>
@@ -990,8 +881,6 @@
             optsBox.appendChild(btn);
           });
         }
-
-        /* Mode: Fill in the Blank */
         else if (q.type === 'fill-blank') {
           this.fillInState = {
             word: q.fullWord,
@@ -1001,33 +890,26 @@
           };
           this.renderFillInBlankUI();
         }
-
-        /* Mode: Floating Treasure Hunt */
         else if (q.type === 'treasure-hunt') {
           this.renderTreasureHuntUI(q);
         }
       }
 
-      /* Step-by-Step Fill in the Blank rendering */
       renderFillInBlankUI() {
         const q = this.questions[this.currentQuestionIndex];
         const state = this.fillInState;
         const promptBox = document.getElementById('prompt-container');
         const optsBox = document.getElementById('options-container');
 
-        // Build word string with filled or missing slots
         let wordDisplayHTML = '';
         for (let i = 0; i < state.word.length; i++) {
           if (state.missingIndices.includes(i)) {
             const missingPos = state.missingIndices.indexOf(i);
             if (missingPos < state.currentIndex) {
-              // Already filled letter
               wordDisplayHTML += `<span class="inline-block w-10 h-12 border-b-4 border-emerald-500 text-3xl font-black text-emerald-600 mx-1">${state.currentAnswers[missingPos]}</span>`;
             } else if (missingPos === state.currentIndex) {
-              // Current target slot
               wordDisplayHTML += `<span class="inline-block w-10 h-12 border-b-4 border-amber-500 bg-amber-100 animate-pulse text-3xl font-black text-amber-600 mx-1">?</span>`;
             } else {
-              // Upcoming missing slot
               wordDisplayHTML += `<span class="inline-block w-10 h-12 border-b-4 border-gray-400 text-3xl font-black text-gray-300 mx-1">_</span>`;
             }
           } else {
@@ -1041,7 +923,6 @@
           <div class="flex justify-center items-center my-3">${wordDisplayHTML}</div>
         `;
 
-        // Refreshed choices for current missing slot
         optsBox.innerHTML = '';
         const activeMissingIdx = state.missingIndices[state.currentIndex];
         const correctLetter = state.word[activeMissingIdx];
@@ -1065,11 +946,9 @@
               state.currentIndex++;
 
               if (state.currentIndex >= state.missingIndices.length) {
-                // All blanks completed correctly!
                 this.levelScore++;
                 this.advanceQuestion();
               } else {
-                // Refresh for next blank
                 this.renderFillInBlankUI();
               }
             } else {
@@ -1082,7 +961,6 @@
         });
       }
 
-      /* Animated Floating Bubbles Treasure Hunt UI */
       renderTreasureHuntUI(q) {
         const promptBox = document.getElementById('prompt-container');
         const optsBox = document.getElementById('options-container');
@@ -1099,7 +977,6 @@
         const targetChars = q.fullWord.split('');
         let targetIndex = 0;
 
-        // Generate 8~10 floating bubbles containing target chars and random distraction chars
         let bubblePool = [...targetChars];
         while (bubblePool.length < 10) {
           const randC = DATA.letters[Math.floor(Math.random() * DATA.letters.length)];
@@ -1111,8 +988,7 @@
           const bubble = document.createElement('div');
           bubble.className = "bubble bg-white/90 text-indigo-900 font-black text-2xl sm:text-3xl border-2 border-indigo-300 animate-float";
           
-          // Random size & floating positions
-          const size = Math.floor(Math.random() * 15) + 50; // 50px-65px
+          const size = Math.floor(Math.random() * 15) + 50;
           bubble.style.width = `${size}px`;
           bubble.style.height = `${size}px`;
           bubble.style.left = `${(i % 5) * 18 + Math.random() * 8 + 2}%`;
@@ -1128,7 +1004,6 @@
               bubble.style.pointerEvents = "none";
               targetIndex++;
 
-              // Update progress feedback
               document.getElementById('hunt-progress-text').innerText = `好棒！已經找到 (${targetIndex}/${targetChars.length})`;
 
               if (targetIndex >= targetChars.length) {
@@ -1146,7 +1021,6 @@
         });
       }
 
-      /* Answer Checking Function */
       handleAnswer(selected, correct) {
         if (selected === correct) {
           audioSys.playCorrect();
@@ -1166,16 +1040,12 @@
         }
       }
 
-      /* Level Completion logic & Stars calculation */
       finishLevel() {
-        // Star calculation based on score percentage
         const ratio = this.levelScore / this.totalQuestions;
         let earnedStars = 1;
         if (ratio >= 0.8) earnedStars = 3;
         else if (ratio >= 0.5) earnedStars = 2;
 
-        // Save Stars Progress
-        let previousTotalStars = this.getTotalStars();
         let wasUnlocked1 = this.getRealmStars(1) >= 27;
         let wasUnlocked2 = this.getRealmStars(2) >= 27;
         let wasUnlocked3 = this.getRealmStars(3) >= 27;
@@ -1187,7 +1057,6 @@
         } else if (this.currentRealm === 3) {
           this.progress.realm3[this.currentLevel - 1] = Math.max(this.progress.realm3[this.currentLevel - 1], earnedStars);
         } else if (this.currentRealm === 4) {
-          // Boss stages max stars 3, 3, 4
           const maxS = [3, 3, 4][this.currentLevel - 1];
           const calculatedBossStars = Math.min(earnedStars, maxS);
           this.progress.boss[this.currentLevel - 1] = Math.max(this.progress.boss[this.currentLevel - 1], calculatedBossStars);
@@ -1195,13 +1064,11 @@
 
         this.saveProgress();
 
-        // Check companion unlocks
         let newlyUnlockedCompanion = null;
         if (!wasUnlocked1 && this.getRealmStars(1) >= 27) newlyUnlockedCompanion = DATA.companions[0];
         if (!wasUnlocked2 && this.getRealmStars(2) >= 27) newlyUnlockedCompanion = DATA.companions[1];
         if (!wasUnlocked3 && this.getRealmStars(3) >= 27) newlyUnlockedCompanion = DATA.companions[2];
 
-        // Trigger victory popup or Grand Victory if Boss defeated
         if (this.currentRealm === 4 && this.currentLevel === 3 && earnedStars >= 2) {
           this.triggerGrandVictory();
         } else {
@@ -1263,62 +1130,65 @@
       }
     }
 
-    /* ==========================================================================
-       CONFETTI CANVASES & CELEBRATION EFFECTS
-       ========================================================================== */
     function triggerConfetti() {
-      const canvas = document.getElementById('confetti-canvas');
-      const ctx = canvas.getContext('2d');
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
+      try {
+        const canvas = document.getElementById('confetti-canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-      const particles = [];
-      const colors = ['#FFD700', '#FF69B4', '#00BFFF', '#7851A9', '#FF4500', '#32CD32'];
+        const particles = [];
+        const colors = ['#FFD700', '#FF69B4', '#00BFFF', '#7851A9', '#FF4500', '#32CD32'];
 
-      for (let i = 0; i < 80; i++) {
-        particles.push({
-          x: canvas.width / 2,
-          y: canvas.height / 2,
-          vx: (Math.random() - 0.5) * 14,
-          vy: (Math.random() - 0.7) * 14,
-          size: Math.random() * 8 + 4,
-          color: colors[Math.floor(Math.random() * colors.length)],
-          rotation: Math.random() * 360,
-          rotSpeed: (Math.random() - 0.5) * 10
-        });
-      }
-
-      let frame = 0;
-      function animate() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        particles.forEach(p => {
-          p.x += p.vx;
-          p.y += p.vy;
-          p.vy += 0.3; // Gravity
-          p.rotation += p.rotSpeed;
-
-          ctx.save();
-          ctx.translate(p.x, p.y);
-          ctx.rotate((p.rotation * Math.PI) / 180);
-          ctx.fillStyle = p.color;
-          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
-          ctx.restore();
-        });
-
-        frame++;
-        if (frame < 100) {
-          requestAnimationFrame(animate);
-        } else {
-          ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < 80; i++) {
+          particles.push({
+            x: canvas.width / 2,
+            y: canvas.height / 2,
+            vx: (Math.random() - 0.5) * 14,
+            vy: (Math.random() - 0.7) * 14,
+            size: Math.random() * 8 + 4,
+            color: colors[Math.floor(Math.random() * colors.length)],
+            rotation: Math.random() * 360,
+            rotSpeed: (Math.random() - 0.5) * 10
+          });
         }
-      }
-      animate();
+
+        let frame = 0;
+        function animate() {
+          ctx.clearRect(0, 0, canvas.width, canvas.height);
+          particles.forEach(p => {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.vy += 0.3;
+            p.rotation += p.rotSpeed;
+
+            ctx.save();
+            ctx.translate(p.x, p.y);
+            ctx.rotate((p.rotation * Math.PI) / 180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+            ctx.restore();
+          });
+
+          frame++;
+          if (frame < 100) {
+            requestAnimationFrame(animate);
+          } else {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+          }
+        }
+        animate();
+      } catch (e) {}
     }
 
-    // Initialize Game Instance
     let game;
     window.onload = () => {
       game = new GameEngine();
+      
+      // 自動解鎖 iOS 聲音限制機制
+      document.body.addEventListener('click', () => {
+        if (audioSys) audioSys.initContext();
+      }, { once: true });
     };
   </script>
 </body>
